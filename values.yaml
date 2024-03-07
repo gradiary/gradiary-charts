@@ -1,0 +1,57 @@
+## Default values for Robomotion RPA
+## This is a YAML-formatted file.
+## Declare variables to be passed into your templates.
+
+## Configure the ingress resource that allows you to access the
+## Robomotion installation. Set up the URL
+## ref: http://kubernetes.io/docs/user-guide/ingress/
+ingress:
+
+  ## Ingress annotations done as key:value pairs
+  ## For a full list of possible ingress annotations, please see
+  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+  ##
+  annotations:
+    kubernetes.io/ingress.class: public
+
+  hosts:
+    - name: gradiary.local
+      # Set this to true in order to enable TLS on the ingress record
+      tls: true
+      ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+      tlsSecret: gradiary-local-tls
+      ## Set this to true if multi tenant
+      multiTenant: false
+      ## If TLS and multiTenant is set to true, you must declare what secret will store the wildcard key/certificate for TLS
+      wildSecret: wild-gradiary-local-tls
+
+serviceAccount:
+  name: gradiary
+
+service:
+  type: ClusterIP
+  port: 80
+
+
+nginx:
+  name: nginx
+
+nginx-ingress:
+  enabled: true
+  controller:
+    publishService:
+      enabled: true
+
+smtp:
+
+# Robomotion API service
+api:
+  name: api
+  image: gcr.io/robomotion/robomotion-api-service
+  imageTag: 08ff9f479
+  superAdminIP:
+  replyMail:
+  ingress:
+    path: /api
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: 16m

@@ -1,0 +1,15 @@
+---
+dependencies:
+- name: cert-manager
+  alias: certmanager
+  version: 1.7.2
+  repository: https://charts.jetstack.io
+  condition: certmanager.enabled
+- name: postgresql
+  version: 13.1.5
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.enabled
+- name: ingress-nginx
+  version: 4.4.0
+  repository: https://kubernetes.github.io/ingress-nginx
+  condition: nginx-ingress.enabled

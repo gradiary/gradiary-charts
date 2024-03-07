@@ -1,0 +1,28 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: api-gradiary
+  labels:
+    app: api-gradiary
+spec:
+  selector:
+    matchLabels:
+      app: api-gradiary
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: api-gradiary
+    spec:
+      containers:
+      - name: api-gradiary
+        image: latifuluman/gradiary-api-service:8b752b2
+        ports:
+        - containerPort: 80
+          name: api
+        env:
+          - name: VERSION
+            value: 0.0.1
+         
+      imagePullSecrets:
+      - name: regcred

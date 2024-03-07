@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gradiary-api-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 8m
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/issuer: letsencrypt-production
+    kubernetes.io/ingress.class: "nginx"
+
+spec:
+  tls:
+  - hosts:
+    - api.gradiary.com
+    #secretName: api-robomotion-production-letsencrypt
+
+  rules:
+  - host: api.gradiary.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: api-gradiary
+          servicePort: 8080

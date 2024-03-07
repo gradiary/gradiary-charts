@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+appVersion: 2024.03.08
+description: Init
+name: gradiary
+version: 1.0.0
+keywords:
+  - rpa
+  - automation
+home: https://www.gradiary.com
+
