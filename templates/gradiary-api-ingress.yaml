@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: gradiary-api-ingress
@@ -20,6 +20,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: api-gradiary
-          servicePort: 8080
+          service: 
+            name: api-gradiary
+            port:
+              number: 80
