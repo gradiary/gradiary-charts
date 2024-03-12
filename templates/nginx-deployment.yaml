@@ -14,18 +14,13 @@ spec:
       labels:
         app: {{ template "robomotion.nginx.fullname" . }}
     spec:
-      volumes:
-      - name: {{ template "robomotion.minio.fullname" . }}
-        persistentVolumeClaim:
-          claimName: {{ template "robomotion.minio.fullname" . }}
+      volumes:      
       - name: nginx-config
         configMap:
           name: nginx-config
       containers:
       - image: nginx
         name: {{ template "robomotion.nginx.fullname" . }}
-        volumeMounts:
-        - name: {{ template "robomotion.minio.fullname" . }}
-          mountPath: /usr/share/nginx/html
+        volumeMounts:        
         - name:  nginx-config
           mountPath: /etc/nginx/conf.d
